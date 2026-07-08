@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct GrandPianoApp: App {
+struct PianoInMyPocketApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
