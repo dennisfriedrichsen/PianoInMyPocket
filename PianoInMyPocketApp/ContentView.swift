@@ -18,11 +18,12 @@ struct ContentView: View {
 
                 VStack(spacing: 0) {
                     PianoHeader()
-                        .frame(height: isWide ? 30 : 42)
+                        .frame(height: isWide ? 18 : 24)
 
                     KeyboardRangePicker(selectedRange: $selectedKeyboardRange)
-                        .frame(height: isWide ? 34 : 44)
+                        .frame(height: isWide ? 30 : 36)
                         .padding(.horizontal, isWide ? 8 : 12)
+                        .padding(.bottom, isWide ? 3 : 5)
 
                     RedFeltStrip()
                         .frame(height: isWide ? 10 : 12)
