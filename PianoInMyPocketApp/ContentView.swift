@@ -7,6 +7,7 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { proxy in
             let isWide = proxy.size.width > proxy.size.height
+            let chooserGap: CGFloat = isWide ? 4 : 6
 
             ZStack {
                 LinearGradient(
@@ -17,14 +18,16 @@ struct ContentView: View {
                 .ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    PianoHeader()
-                        .frame(height: isWide ? 18 : 24)
+                    Spacer()
+                        .frame(height: chooserGap)
 
                     KeyboardRangePicker(selectedRange: $selectedKeyboardRange)
                         .frame(height: isWide ? 30 : 36)
                         .frame(maxWidth: isWide ? 360 : 300)
                         .padding(.horizontal, isWide ? 8 : 12)
-                        .padding(.vertical, isWide ? 3 : 5)
+
+                    Spacer()
+                        .frame(height: chooserGap)
 
                     RedFeltStrip()
                         .frame(height: isWide ? 10 : 12)
@@ -78,41 +81,6 @@ private enum KeyboardRange: String, CaseIterable, Identifiable {
         case .soprano:
             PianoKey.keys(in: 60...84)
         }
-    }
-}
-
-private struct PianoHeader: View {
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.02, green: 0.02, blue: 0.018),
-                            Color(red: 0.10, green: 0.095, blue: 0.085),
-                            Color(red: 0.01, green: 0.01, blue: 0.009)
-                        ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .overlay(alignment: .top) {
-                    Rectangle()
-                        .fill(.white.opacity(0.12))
-                        .frame(height: 1)
-                        .padding(.horizontal, 18)
-                }
-                .shadow(color: .white.opacity(0.10), radius: 8, x: 0, y: 1)
-                .shadow(color: .black.opacity(0.70), radius: 18, x: 0, y: 12)
-
-            Rectangle()
-                .fill(.white.opacity(0.045))
-                .frame(height: 1)
-                .padding(.horizontal, 42)
-        }
-        .padding(.horizontal, 2)
-        .padding(.top, 2)
-        .padding(.bottom, 2)
     }
 }
 
