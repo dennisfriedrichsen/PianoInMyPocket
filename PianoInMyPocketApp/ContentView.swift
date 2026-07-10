@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var audioEngine = PianoAudioEngine()
+    @State private var selectedKeyboardRange: KeyboardRange = .aroundMiddleC
 
     var body: some View {
         GeometryReader { proxy in
@@ -19,10 +20,14 @@ struct ContentView: View {
                     PianoHeader()
                         .frame(height: isWide ? 30 : 42)
 
+                    KeyboardRangePicker(selectedRange: $selectedKeyboardRange)
+                        .frame(height: isWide ? 34 : 44)
+                        .padding(.horizontal, isWide ? 8 : 12)
+
                     RedFeltStrip()
                         .frame(height: isWide ? 10 : 12)
 
-                    PianoKeyboard(audioEngine: audioEngine)
+                    PianoKeyboard(keys: selectedKeyboardRange.keys, audioEngine: audioEngine)
                         .padding(.horizontal, isWide ? 2 : 6)
                         .padding(.bottom, isWide ? 2 : 6)
                 }
@@ -30,6 +35,47 @@ struct ContentView: View {
             }
         }
         .preferredColorScheme(.dark)
+    }
+}
+
+private enum KeyboardRange: String, CaseIterable, Identifiable {
+    case bass
+    case aroundMiddleC
+    case soprano
+
+    var id: Self { self }
+
+    var title: String {
+        switch self {
+        case .bass:
+            "Bass"
+        case .aroundMiddleC:
+            "Center"
+        case .soprano:
+            "Soprano"
+        }
+    }
+
+    var accessibilityLabel: String {
+        switch self {
+        case .bass:
+            "Bass range, C2 through C4"
+        case .aroundMiddleC:
+            "Center range, C3 through C5"
+        case .soprano:
+            "Soprano range, C4 through C6"
+        }
+    }
+
+    var keys: [PianoKey] {
+        switch self {
+        case .bass:
+            PianoKey.keys(in: 36...60)
+        case .aroundMiddleC:
+            PianoKey.twoOctavesAroundMiddleC
+        case .soprano:
+            PianoKey.keys(in: 60...84)
+        }
     }
 }
 
@@ -68,6 +114,23 @@ private struct PianoHeader: View {
     }
 }
 
+private struct KeyboardRangePicker: View {
+    @Binding var selectedRange: KeyboardRange
+
+    var body: some View {
+        Picker("Keyboard range", selection: $selectedRange) {
+            ForEach(KeyboardRange.allCases) { range in
+                Text(range.title)
+                    .tag(range)
+                    .accessibilityLabel(Text(range.accessibilityLabel))
+            }
+        }
+        .pickerStyle(.segmented)
+        .tint(Color(red: 0.70, green: 0.05, blue: 0.055))
+        .accessibilityHint(Text("Changes which octaves are displayed on the piano keyboard"))
+    }
+}
+
 private struct RedFeltStrip: View {
     var body: some View {
         LinearGradient(
@@ -84,9 +147,9 @@ private struct RedFeltStrip: View {
 }
 
 private struct PianoKeyboard: View {
+    let keys: [PianoKey]
     @ObservedObject var audioEngine: PianoAudioEngine
 
-    private let keys = PianoKey.twoOctavesAroundMiddleC
     private var whiteKeys: [PianoKey] { keys.filter { !$0.isSharp } }
     private var blackKeys: [PianoKey] { keys.filter(\.isSharp) }
 
@@ -229,7 +292,15 @@ struct PianoKey: Identifiable, Equatable {
         440.0 * pow(2.0, Double(midiNote - 69) / 12.0)
     }
 
-    static let twoOctavesAroundMiddleC: [PianoKey] = (48...72).map { midi in
+    static let twoOctavesAroundMiddleC: [PianoKey] = keys(in: 48...72)
+
+    static func keys(in midiRange: ClosedRange<Int>) -> [PianoKey] {
+        midiRange.map { midi in
+            makeKey(midiNote: midi)
+        }
+    }
+
+    private static func makeKey(midiNote midi: Int) -> PianoKey {
         let noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
         let name = noteNames[midi % 12]
         let octave = (midi / 12) - 1
