@@ -22,8 +22,9 @@ struct ContentView: View {
 
                     KeyboardRangePicker(selectedRange: $selectedKeyboardRange)
                         .frame(height: isWide ? 30 : 36)
+                        .frame(maxWidth: isWide ? 360 : 300)
                         .padding(.horizontal, isWide ? 8 : 12)
-                        .padding(.bottom, isWide ? 3 : 5)
+                        .padding(.vertical, isWide ? 3 : 5)
 
                     RedFeltStrip()
                         .frame(height: isWide ? 10 : 12)
