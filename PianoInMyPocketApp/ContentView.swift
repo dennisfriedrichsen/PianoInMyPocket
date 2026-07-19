@@ -38,23 +38,19 @@ struct ContentView: View {
                         .padding(.bottom, isWide ? 2 : 6)
                 }
                 .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
-
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            isShowingAbout = true
-                        } label: {
-                            Image(systemName: "info.circle")
-                                .font(.system(size: isWide ? 14 : 18, weight: .medium))
-                                .foregroundStyle(.white.opacity(0.55))
-                                .padding(8)
-                        }
-                        .accessibilityLabel(Text("About"))
-                    }
-                    Spacer()
+            }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    isShowingAbout = true
+                } label: {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: isWide ? 14 : 18, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.55))
+                        .padding(8)
                 }
-                .frame(height: chooserGap + (isWide ? 30 : 36) + chooserGap, alignment: .top)
+                .accessibilityLabel(Text("About"))
+                .padding(.top, chooserGap)
+                .padding(.trailing, isWide ? 4 : 6)
             }
         }
         .preferredColorScheme(.dark)
