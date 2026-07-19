@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var audioEngine = PianoAudioEngine()
+    @State private var isShowingAbout = false
 
     var body: some View {
         GeometryReader { proxy in
@@ -27,9 +28,29 @@ struct ContentView: View {
                         .padding(.bottom, isWide ? 2 : 6)
                 }
                 .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
+
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            isShowingAbout = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .font(.system(size: isWide ? 14 : 18, weight: .medium))
+                                .foregroundStyle(.white.opacity(0.55))
+                                .padding(8)
+                        }
+                        .accessibilityLabel(Text("About"))
+                    }
+                    Spacer()
+                }
+                .frame(height: isWide ? 30 : 42, alignment: .top)
             }
         }
         .preferredColorScheme(.dark)
+        .sheet(isPresented: $isShowingAbout) {
+            AboutSheet()
+        }
     }
 }
 
