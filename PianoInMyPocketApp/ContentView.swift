@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var audioEngine = PianoAudioEngine()
+    @State private var isShowingAbout = false
     @State private var selectedKeyboardRange: KeyboardRange = .aroundMiddleC
 
     var body: some View {
@@ -38,8 +39,24 @@ struct ContentView: View {
                 }
                 .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
             }
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    isShowingAbout = true
+                } label: {
+                    Image(systemName: "info.circle")
+                        .font(.system(size: isWide ? 14 : 18, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.55))
+                        .padding(8)
+                }
+                .accessibilityLabel(Text("About"))
+                .padding(.top, chooserGap)
+                .padding(.trailing, isWide ? 4 : 6)
+            }
         }
         .preferredColorScheme(.dark)
+        .sheet(isPresented: $isShowingAbout) {
+            AboutSheet()
+        }
     }
 }
 

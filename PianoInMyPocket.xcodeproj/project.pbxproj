@@ -11,6 +11,7 @@
 		4C6F3D9D2E10000100A10101 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F3D992E10000100A10101 /* ContentView.swift */; };
 		4C6F3D9E2E10000100A10101 /* PianoAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F3D9A2E10000100A10101 /* PianoAudioEngine.swift */; };
 		4C6F3D9F2E10000100A10101 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C6F3D9B2E10000100A10101 /* Assets.xcassets */; };
+		4C6F3DA22E10000100A10101 /* AboutSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6F3DA62E10000100A10101 /* AboutSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		4C6F3D992E10000100A10101 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4C6F3D9A2E10000100A10101 /* PianoAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PianoAudioEngine.swift; sourceTree = "<group>"; };
 		4C6F3D9B2E10000100A10101 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4C6F3DA62E10000100A10101 /* AboutSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				4C6F3D982E10000100A10101 /* PianoInMyPocketApp.swift */,
 				4C6F3D992E10000100A10101 /* ContentView.swift */,
 				4C6F3D9A2E10000100A10101 /* PianoAudioEngine.swift */,
+				4C6F3DA62E10000100A10101 /* AboutSheet.swift */,
 				4C6F3D9B2E10000100A10101 /* Assets.xcassets */,
 			);
 			path = PianoInMyPocketApp;
@@ -132,6 +135,7 @@
 				4C6F3D9C2E10000100A10101 /* PianoInMyPocketApp.swift in Sources */,
 				4C6F3D9D2E10000100A10101 /* ContentView.swift in Sources */,
 				4C6F3D9E2E10000100A10101 /* PianoAudioEngine.swift in Sources */,
+				4C6F3DA22E10000100A10101 /* AboutSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
