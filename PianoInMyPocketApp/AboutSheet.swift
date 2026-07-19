@@ -18,32 +18,33 @@ struct AboutSheet: View {
         NavigationStack {
             HStack(alignment: .top, spacing: 24) {
                 VStack(alignment: .leading, spacing: 18) {
-                    VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 4) {
                         if let appVersion {
                             Text("Version " + appVersion)
                         }
-                        Text("© 2026 Dennis R. Friedrichsen")
+                        Text("· © 2026 Dennis R. Friedrichsen")
                     }
                     .foregroundStyle(.secondary)
+                    .fixedSize()
 
-                    AboutLinkRow(title: "Website",
-                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/index.html")!)
-                    AboutLinkRow(title: "Privacy Policy",
-                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/privacy.html")!)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                Divider()
-
-                VStack(alignment: .leading, spacing: 18) {
-                    AboutLinkRow(title: "Help",
-                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/help.html")!)
                     AboutLinkRow(title: "Issues Tracker (github.com)",
                                  destination: URL(string: "https://github.com/dennisfriedrichsen/PianoInMyPocket")!)
                     AboutLinkRow(title: "Buy me a coffee!",
                                  destination: URL(string: "https://www.buymeacoffee.com/drfriedrichsen")!)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+
+                Divider()
+
+                VStack(alignment: .leading, spacing: 18) {
+                    AboutLinkRow(title: "Website",
+                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/index.html")!)
+                    AboutLinkRow(title: "Privacy Policy",
+                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/privacy.html")!)
+                    AboutLinkRow(title: "Help",
+                                 destination: URL(string: "http://pianoinmypocket.friedrichsenweb.com/help.html")!)
+                }
+
+                Spacer(minLength: 0)
             }
             .padding(24)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -66,14 +67,14 @@ private struct AboutLinkRow: View {
 
     var body: some View {
         Link(destination: destination) {
-            HStack {
+            HStack(spacing: 4) {
                 Text(title)
-                Spacer()
                 Image(systemName: "chevron.forward")
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             }
         }
+        .fixedSize()
     }
 }
 
